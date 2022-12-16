@@ -28,24 +28,36 @@ public class Main extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         //Set up the game loop
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.1), e -> draw(gc)));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.01), e -> draw(gc)));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.playFromStart();
 
         root.getChildren().add(canvas);
+        stage.setResizable(false);
         stage.setScene(new Scene(root));
         stage.show();
     }
 
     private void draw(GraphicsContext gc) {
+        Canvas canvas = gc.getCanvas();
+        double canvasWidth = canvas.getWidth();
+        double canvasHeight = canvas.getHeight();
+
         //Clear the canvas each frame with a background
         gc.setFill(Color.BLACK);
-        gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+        gc.fillRect(0, 0, canvasWidth, canvasHeight);
 
         //Set the properties of the other objects in the canvas
         gc.setFill(Color.WHITE);
         gc.setStroke(Color.GRAY);
         gc.setLineWidth(5);
+
+        //TODO: Make this into a class to easily check collision and coordinates
+        //The player object - always in the middle
+        double middleX = canvasWidth / 2;
+        double middleY = canvasHeight / 2;
+
+        gc.fillRect(middleX - 10, middleY - 10, 20, 20);
 
         //DEBUG: Testing a line
         gc.strokeLine(currentX, currentY, currentX, currentY + 60);
