@@ -22,8 +22,6 @@ public class Main extends Application {
 
     private double canvasWidth;
     private double canvasHeight;
-    private double currentX = 0;
-    private double currentY = 20;
 
     static Player player;
     static Path path;
@@ -75,8 +73,6 @@ public class Main extends Application {
     }
 
     private void draw(GraphicsContext gc) {
-        Canvas canvas = gc.getCanvas();
-
         //Clear the canvas each frame with a background
         gc.setFill(Color.BLACK);
         gc.fillRect(0, 0, canvasWidth, canvasHeight);
@@ -86,13 +82,10 @@ public class Main extends Application {
         gc.setStroke(Color.GRAY);
         gc.setLineWidth(path.getLineWidth());
 
+        //Draw the lines of the path
+        path.draw(gc);
+
         //The player object - always in the middle
         player.draw(gc);
-
-        //DEBUG: Testing a line
-        gc.strokeLine(currentX, currentY, currentX, currentY + 60);
-
-        //TODO: Move to another method that handles movement
-        currentX ++;
     }
 }
