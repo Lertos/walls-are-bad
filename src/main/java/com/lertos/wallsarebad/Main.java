@@ -5,16 +5,13 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -44,7 +41,7 @@ public class Main extends Application {
 
         //Setup initial map and player
         setupHandlers(stage);
-        player = new Player(canvasWidth / 2, canvasHeight / 2, 10);
+        player = new Player(canvasWidth / 2, canvasHeight / 2, 2);
         path = new Path(canvas, 10);
 
         //Finish setting up the stage and then present it
@@ -87,5 +84,8 @@ public class Main extends Application {
 
         //The player object - always in the middle
         player.draw(gc);
+
+        //Move the lines
+        path.moveLines(player.getDirection(), player.getSpeed());
     }
 }

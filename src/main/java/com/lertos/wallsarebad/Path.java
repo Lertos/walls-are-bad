@@ -55,7 +55,11 @@ public class Path {
 
     public void moveLines(Direction direction, int speed) {
         for (Line line : pathOfLines) {
-            //Move the line based on the current player direction
+            switch (direction) {
+                case UP -> line.moveLine(0, speed);
+                case LEFT -> line.moveLine(speed, 0);
+                case RIGHT -> line.moveLine(-speed, 0);
+            }
         }
     }
 }
