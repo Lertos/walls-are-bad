@@ -19,4 +19,12 @@ public class Player {
     public void changeDirection(Direction direction) {
         this.direction = direction;
     }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
 }

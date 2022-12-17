@@ -4,10 +4,15 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -17,7 +22,11 @@ public class Main extends Application {
     private double currentX = 0;
     private double currentY = 20;
 
+    static Player player;
+
     public static void main(String[] args) {
+        player = new Player(10);
+
         launch();
     }
 
@@ -36,6 +45,26 @@ public class Main extends Application {
         stage.setResizable(false);
         stage.setScene(new Scene(root));
         stage.show();
+
+        setupHandlers(stage);
+    }
+
+    private void setupHandlers(Stage stage) {
+        EventHandler<KeyEvent> handler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.A)
+                    player.changeDirection(Direction.LEFT);
+                else if (event.getCode() == KeyCode.W)
+                    player.changeDirection(Direction.UP);
+                else if (event.getCode() == KeyCode.D)
+                    player.changeDirection(Direction.RIGHT);
+
+                event.consume();
+            }
+        };
+
+        stage.addEventHandler(KeyEvent.KEY_PRESSED, handler);
     }
 
     private void draw(GraphicsContext gc) {
