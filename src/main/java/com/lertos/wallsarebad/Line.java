@@ -4,12 +4,14 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class Line {
 
+    private final Direction direction;
     private double startX;
     private double startY;
     private double endX;
     private double endY;
 
-    public Line(double startX, double startY, double endX, double endY) {
+    public Line(Direction direction, double startX, double startY, double endX, double endY) {
+        this.direction = direction;
         this.startX = startX;
         this.startY = startY;
         this.endX = endX;

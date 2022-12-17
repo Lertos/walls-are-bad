@@ -45,7 +45,7 @@ public class Path {
     private void addInitialLine() {
         double middleX = canvasWidth / 2;
 
-        pathOfLines.add(new Line(middleX, canvasHeight, middleX, 0));
+        pathOfLines.add(new Line(Direction.UP, middleX, canvasHeight, middleX, 0));
     }
 
     //Takes the current end point and adds a line to it
