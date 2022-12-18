@@ -5,55 +5,53 @@ import javafx.scene.canvas.GraphicsContext;
 public class Line {
 
     private final Direction direction;
-    private double startX;
-    private double startY;
-    private double endX;
-    private double endY;
+    private double minX;
+    private double minY;
+    private double maxX;
+    private double maxY;
 
-    public Line(Direction direction, double startX, double startY, double endX, double endY) {
+    public Line(Direction direction, double minX, double minY, double maxX, double maxY) {
         this.direction = direction;
-        this.startX = startX;
-        this.startY = startY;
-        this.endX = endX;
-        this.endY = endY;
+        this.minX = minX;
+        this.minY = minY;
+        this.maxX = maxX;
+        this.maxY = maxY;
     }
 
     public void draw(GraphicsContext gc) {
-        gc.strokeLine(this.startX, this.startY, this.endX, this.endY);
+        gc.strokeLine(this.minX, this.minY, this.maxX, this.maxY);
     }
 
     public void moveLine(double moveX, double moveY) {
         if (moveX != 0) {
-            startX += moveX;
-            endX += moveX;
+            minX += moveX;
+            maxX += moveX;
         }
         else if (moveY != 0) {
-            startY += moveY;
-            endY += moveY;
+            minY += moveY;
+            maxY += moveY;
         }
     }
 
-    public boolean isOutsideBounds(double lineWidth, double x, double y) {
-        return (x < endX - lineWidth || x > endX + lineWidth || y < endX - lineWidth || y > endX + lineWidth);
+    public boolean isOutsideBounds(double x, double y) {
+        double lineWidth = Main.path.getLineWidth();
+
+        return (x < minX - lineWidth || x > maxX + lineWidth || y < minY - lineWidth || y > maxY + lineWidth);
     }
 
     public Direction getDirection() {
         return direction;
     }
 
-    public double getStartX() {
-        return startX;
+    public double getMinX() {
+        return minX;
     }
 
-    public double getStartY() {
-        return startY;
+    public double getMinY() {
+        return minY;
     }
 
-    public double getEndX() {
-        return endX;
-    }
-
-    public double getEndY() {
-        return endY;
+    public double getMaxX() {
+        return maxX;
     }
 }

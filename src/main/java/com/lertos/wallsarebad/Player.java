@@ -12,6 +12,8 @@ public class Player {
 
     private final double startX;
     private final double startY;
+    private double currentX;
+    private double currentY;
     private Direction direction;
     private Line currentLine;
     private Line nextLine;
@@ -22,6 +24,8 @@ public class Player {
     public Player(double startX, double startY, int speed) {
         this.startX = startX - (size / 2);
         this.startY = startY - (size / 2);
+        this.currentX = startX;
+        this.currentY = startY;
         this.direction = Direction.UP;
         this.speed = speed;
     }
@@ -42,8 +46,8 @@ public class Player {
         gc.fillRect(startX, startY, size, size);
     }
 
-    public Line getCurrentLine() {
-        return currentLine;
+    public Line getNextLine() {
+        return nextLine;
     }
 
     public void setCurrentLine(Line currentLine) {
@@ -55,7 +59,7 @@ public class Player {
     }
 
     public void updateCurrentCorner() {
-        this.currentCorner = new Corner(Main.path.getLineWidth(), currentLine, nextLine);
+        this.currentCorner = new Corner(currentLine, nextLine);
     }
 
     public void moveCorner(Direction direction, int speed) {
@@ -67,10 +71,10 @@ public class Player {
     }
 
     public boolean collided() {
-        return currentLine.isOutsideBounds(Main.path.getLineWidth(), startX, startY);
+        return currentLine.isOutsideBounds(currentX, currentY);
     }
 
     public boolean movedToNextLine() {
-        return currentCorner.isCollisionTheCross(startX, startY);
+        return currentCorner.isCollisionTheCross(currentX, currentY);
     }
 }

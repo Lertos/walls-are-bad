@@ -2,42 +2,43 @@ package com.lertos.wallsarebad;
 
 public class Corner {
 
-    private double startX;
-    private double startY;
-    private double endX;
-    private double endY;
+    private double x;
+    private double y;
     private final Direction current;
     private final Direction next;
 
-    public Corner(double lineWidth, Line current, Line next) {
-        getPointsFromLines(lineWidth, current, next);
-
+    public Corner(Line current, Line next) {
         this.current = current.getDirection();
         this.next = next.getDirection();
+
+        getPointsFromLines(current);
     }
 
-    private void getPointsFromLines(double lineWidth, Line current, Line next) {
-        double x = current.getEndX();
-        double y = current.getEndY();
+    private void getPointsFromLines(Line currentLine) {
+        double currX = currentLine.getMinX();
+        double currY = currentLine.getMinY();
 
-        startX = x - lineWidth;
-        startY = y - lineWidth;
-        endX = x + lineWidth;
-        endY = y + lineWidth;
+        if (current.equals(Direction.RIGHT))
+            currX = currentLine.getMaxX();
+
+        x = currX;
+        y = currY;
     }
 
     //This checks to make sure if there is a collision on a line that it is the one between the two lines
     //true = it's the cross of both lines, false = it's not the cross and the collision was bad
-    public boolean isCollisionTheCross(double x, double y) {
+    public boolean isCollisionTheCross(double playerX, double playerY) {
+        double lineWidth = Main.path.getLineWidth();
+
         if (current.equals(Direction.LEFT) || current.equals(Direction.RIGHT)) {
-            if (x > startX && x < endX && y < endY)
+            if (playerX >= x - lineWidth && playerX <= x + lineWidth && playerY <= y + lineWidth)
                 return true;
         } else if (current.equals(Direction.UP)) {
             if (next.equals(Direction.LEFT)) {
-                if (x < endX && y < endY && y > startY)
+                if (playerX <= x + lineWidth && playerY >= y - lineWidth && playerY <= y + lineWidth)
                     return true;
             } else if (next.equals(Direction.RIGHT)) {
-                if (x > startX && y < endY && y > startY)
+                if (playerX >= x - lineWidth && playerY <= y + lineWidth && playerY >= y - lineWidth)
                     return true;
             }
         }
@@ -45,12 +46,10 @@ public class Corner {
     }
 
     public void setX(double x) {
-        this.startX += x;
-        this.endY += x;
+        this.x += x;
     }
 
     public void setY(double y) {
-        this.startY += y;
-        this.endY += y;
+        this.y += y;
     }
 }

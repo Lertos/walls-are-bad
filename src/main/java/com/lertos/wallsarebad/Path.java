@@ -2,8 +2,8 @@ package com.lertos.wallsarebad;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.util.Pair;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -11,7 +11,7 @@ import java.util.Random;
 public class Path {
 
     private final List<Line> pathOfLines;
-    private double lineWidth = 20;
+    private double lineWidth = 40;
     private final int minLineTiles = 4;
     private final int maxLineTiles = 12;
     private final double canvasWidth;
@@ -54,7 +54,7 @@ public class Path {
     private void addInitialLine() {
         double middleX = canvasWidth / 2;
 
-        pathOfLines.add(new Line(Direction.UP, middleX, canvasHeight, middleX, 0));
+        pathOfLines.add(new Line(Direction.UP, middleX, 0, middleX, canvasHeight));
     }
 
     //Takes the current end point and adds a line to it
@@ -75,34 +75,48 @@ public class Path {
         }
 
         //Get the line length as well as start and end points
-        int lineLength = rng.nextInt(minLineTiles,maxLineTiles);
-        double startX = prevLine.getEndX();
-        double startY = prevLine.getEndY();
+        Pair<Double, Double> startPosition = getPrevEndPoint(prevLine, prevDir);
+
+        double startX = startPosition.getKey(), startY = startPosition.getValue();
         double endX = startX, endY = startY;
 
-        if (newDir.equals(Direction.LEFT)) {
-            endX -= lineLength * lineWidth;
-        } else if (newDir.equals(Direction.UP)) {
-            endY -= lineLength * lineWidth;
-        } else if (newDir.equals(Direction.RIGHT)) {
-            endX += lineLength * lineWidth;
-        }
+        int lineLength = rng.nextInt(minLineTiles, maxLineTiles);
 
-        Line newLine = new Line(newDir, startX, startY, endX, endY);
+        //Get the end points based on the line length and direction
+        if (newDir.equals(Direction.LEFT))
+            endX -= lineLength * lineWidth;
+        else if (newDir.equals(Direction.UP))
+            endY -= lineLength * lineWidth;
+        else if (newDir.equals(Direction.RIGHT))
+            endX += lineLength * lineWidth;
+
+        Line newLine = new Line(newDir, Math.min(startX, endX), Math.min(startY, endY), Math.max(startX, endX), Math.max(startY, endY));
         pathOfLines.add(newLine);
     }
 
-    public void changePlayerLines() {
-        int index = pathOfLines.indexOf(Main.player.getCurrentLine());
+    private Pair<Double, Double> getPrevEndPoint(Line prevLine, Direction prevDir) {
+        double x = prevLine.getMinX();
+        double y = prevLine.getMinY();
 
-        if (index == -1 || index >= pathOfLines.size())
+        //Only time when you wouldn't get the min is when you go right as X increases at the end
+        if (prevDir.equals(Direction.RIGHT))
+            x = prevLine.getMaxX();
+
+        return new Pair<>(x, y);
+    }
+
+    public void changePlayerLines() {
+        int index = pathOfLines.indexOf(Main.player.getNextLine());
+
+        if (index == -1 || index + 1 >= pathOfLines.size())
             return;
 
-        Main.player.setNextLine(pathOfLines.get(index));
+        Main.player.setCurrentLine(pathOfLines.get(index));
+        Main.player.setNextLine(pathOfLines.get(index + 1));
         Main.player.updateCurrentCorner();
     }
 
-    public void moveLines(Direction direction, int speed) {
+    public void moveObjects(Direction direction, int speed) {
         for (Line line : pathOfLines) {
             switch (direction) {
                 case UP -> line.moveLine(0, speed);

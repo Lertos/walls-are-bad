@@ -19,6 +19,7 @@ public class Main extends Application {
 
     private double canvasWidth;
     private double canvasHeight;
+    private boolean playerIsDead = false;
 
     static Player player;
     static Path path;
@@ -84,20 +85,20 @@ public class Main extends Application {
         gc.setStroke(Color.GRAY);
         gc.setLineWidth(path.getLineWidth());
 
-        //TODO: Need playerIsDead flag to stop other animations if dead
-
-        //Check for collisions
-        if (player.collided()) {
-            if (player.movedToNextLine()) {
+        if (!playerIsDead) {
+            //Check for collisions
+            if (player.collided()) {
                 //Set the new current and next lines (as well as the corner)
-                path.changePlayerLines();
-            } else {
-                //TODO: Add a death animation
-                System.out.println("YOU DIED");
-                return;
+                if (player.movedToNextLine())
+                    path.changePlayerLines();
+                else {
+                    playerIsDead = true;
+                    //TODO: Add a death animation
+                    System.out.println("YOU DIED");
+                    return;
+                }
             }
         }
-
         //Draw the lines of the path
         path.draw(gc);
 
@@ -105,6 +106,7 @@ public class Main extends Application {
         player.draw(gc);
 
         //Move the lines
-        path.moveLines(player.getDirection(), player.getSpeed());
+        if (!playerIsDead)
+            path.moveObjects(player.getDirection(), player.getSpeed());
     }
 }
