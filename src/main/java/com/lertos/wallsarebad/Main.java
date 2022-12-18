@@ -40,9 +40,14 @@ public class Main extends Application {
         timeline.playFromStart();
 
         //Setup initial map and player
-        setupHandlers(stage);
         player = new Player(canvasWidth / 2, canvasHeight / 2, 2);
         path = new Path(canvas, 10);
+
+        player.setCurrentLine(path.getLine(0));
+        player.setNextLine(path.getLine(1));
+        player.updateCurrentCorner();
+
+        setupHandlers(stage);
 
         //Finish setting up the stage and then present it
         root.getChildren().add(canvas);
@@ -78,6 +83,20 @@ public class Main extends Application {
         gc.setFill(Color.WHITE);
         gc.setStroke(Color.GRAY);
         gc.setLineWidth(path.getLineWidth());
+
+        //TODO: Need playerIsDead flag to stop other animations if dead
+
+        //Check for collisions
+        if (player.collided()) {
+            if (player.movedToNextLine()) {
+                //Set the new current and next lines (as well as the corner)
+                path.changePlayerLines();
+            } else {
+                //TODO: Add a death animation
+                System.out.println("YOU DIED");
+                return;
+            }
+        }
 
         //Draw the lines of the path
         path.draw(gc);

@@ -33,8 +33,8 @@ public class Line {
         }
     }
 
-    public boolean isOutsideBounds(double x, double y) {
-        return false;
+    public boolean isOutsideBounds(double lineWidth, double x, double y) {
+        return (x < endX - lineWidth || x > endX + lineWidth || y < endX - lineWidth || y > endX + lineWidth);
     }
 
     public Direction getDirection() {

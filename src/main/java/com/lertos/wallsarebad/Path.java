@@ -2,6 +2,8 @@ package com.lertos.wallsarebad;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -28,6 +30,12 @@ public class Path {
 
     public double getLineWidth() {
         return lineWidth;
+    }
+
+    public Line getLine(int index) {
+        if (index > pathOfLines.size())
+            return null;
+        return pathOfLines.get(index);
     }
 
     private void generateInitialLines(int numOfInitialLines) {
@@ -84,6 +92,16 @@ public class Path {
         pathOfLines.add(newLine);
     }
 
+    public void changePlayerLines() {
+        int index = pathOfLines.indexOf(Main.player.getCurrentLine());
+
+        if (index == -1 || index >= pathOfLines.size())
+            return;
+
+        Main.player.setNextLine(pathOfLines.get(index));
+        Main.player.updateCurrentCorner();
+    }
+
     public void moveLines(Direction direction, int speed) {
         for (Line line : pathOfLines) {
             switch (direction) {
@@ -92,5 +110,6 @@ public class Path {
                 case RIGHT -> line.moveLine(-speed, 0);
             }
         }
+        Main.player.moveCorner(direction, speed);
     }
 }

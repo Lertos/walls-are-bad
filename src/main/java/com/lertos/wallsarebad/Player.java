@@ -42,6 +42,10 @@ public class Player {
         gc.fillRect(startX, startY, size, size);
     }
 
+    public Line getCurrentLine() {
+        return currentLine;
+    }
+
     public void setCurrentLine(Line currentLine) {
         this.currentLine = currentLine;
     }
@@ -50,9 +54,23 @@ public class Player {
         this.nextLine = nextLine;
     }
 
-    public Line checkCollisions() {
-        double lineWidth = Main.path.getLineWidth();
+    public void updateCurrentCorner() {
+        this.currentCorner = new Corner(Main.path.getLineWidth(), currentLine, nextLine);
+    }
 
-        return null;
+    public void moveCorner(Direction direction, int speed) {
+        switch (direction) {
+            case UP -> currentCorner.setY(speed);
+            case LEFT -> currentCorner.setX(speed);
+            case RIGHT -> currentCorner.setX(-speed);
+        }
+    }
+
+    public boolean collided() {
+        return currentLine.isOutsideBounds(Main.path.getLineWidth(), startX, startY);
+    }
+
+    public boolean movedToNextLine() {
+        return currentCorner.isCollisionTheCross(startX, startY);
     }
 }

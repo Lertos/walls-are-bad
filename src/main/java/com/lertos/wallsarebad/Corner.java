@@ -43,4 +43,14 @@ public class Corner {
         }
         return false;
     }
+
+    public void setX(double x) {
+        this.startX += x;
+        this.endY += x;
+    }
+
+    public void setY(double y) {
+        this.startY += y;
+        this.endY += y;
+    }
 }
