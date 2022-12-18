@@ -42,6 +42,8 @@ public class Player {
         return speed;
     }
 
+    public int getSize() { return size; }
+
     public void draw(GraphicsContext gc) {
         gc.fillRect(startX, startY, size, size);
     }

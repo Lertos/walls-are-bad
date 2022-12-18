@@ -34,9 +34,10 @@ public class Line {
     }
 
     public boolean isOutsideBounds(double x, double y) {
-        double lineWidth = Main.path.getLineWidth();
+        //Offset is taking half of the line width and half of the player size into account as positions are centered
+        double offset = (Main.path.getLineWidth() + Main.player.getSize()) / 2;
 
-        return (x < minX - lineWidth || x > maxX + lineWidth || y < minY - lineWidth || y > maxY + lineWidth);
+        return (x < minX - offset || x > maxX + offset || y < minY - offset || y > maxY + offset);
     }
 
     public Direction getDirection() {
