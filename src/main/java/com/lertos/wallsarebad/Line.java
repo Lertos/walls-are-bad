@@ -32,4 +32,16 @@ public class Line {
             endY += moveY;
         }
     }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public double getEndX() {
+        return endX;
+    }
+
+    public double getEndY() {
+        return endY;
+    }
 }
