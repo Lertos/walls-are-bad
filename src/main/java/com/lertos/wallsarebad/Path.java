@@ -11,9 +11,9 @@ import java.util.Random;
 public class Path {
 
     private final List<Line> pathOfLines;
-    private double lineWidth = 40;
-    private final int minLineTiles = 4;
-    private final int maxLineTiles = 12;
+    private double lineWidth = 30;
+    private final int minLineTiles = 2;
+    private final int maxLineTiles = 6;
     private final double canvasWidth;
     private final double canvasHeight;
     private Random rng;

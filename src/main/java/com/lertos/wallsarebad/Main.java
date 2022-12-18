@@ -77,13 +77,15 @@ public class Main extends Application {
 
     private void draw(GraphicsContext gc) {
         //Clear the canvas each frame with a background
-        gc.setFill(Color.BLACK);
+        gc.setFill(Color.web("#1A120B"));
         gc.fillRect(0, 0, canvasWidth, canvasHeight);
 
         //Set the properties of the other objects in the canvas
-        gc.setFill(Color.WHITE);
-        gc.setStroke(Color.GRAY);
+        gc.setFill(Color.web("D5CEA3"));
+        gc.setStroke(Color.web("3C2A21"));
         gc.setLineWidth(path.getLineWidth());
+
+        //TODO: Text color should be "E5E5CB"
 
         if (!playerIsDead) {
             //Check for collisions
