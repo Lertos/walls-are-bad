@@ -95,7 +95,6 @@ public class Main extends Application {
                     playerIsDead = true;
                     //TODO: Add a death animation
                     System.out.println("YOU DIED");
-                    return;
                 }
             }
         }
