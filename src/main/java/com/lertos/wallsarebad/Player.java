@@ -13,6 +13,9 @@ public class Player {
     private final double startX;
     private final double startY;
     private Direction direction;
+    private Line currentLine;
+    private Line nextLine;
+    private Corner currentCorner;
     private int speed;
     private final int size = 10;
 
@@ -35,8 +38,21 @@ public class Player {
         return speed;
     }
 
-
     public void draw(GraphicsContext gc) {
         gc.fillRect(startX, startY, size, size);
+    }
+
+    public void setCurrentLine(Line currentLine) {
+        this.currentLine = currentLine;
+    }
+
+    public void setNextLine(Line nextLine) {
+        this.nextLine = nextLine;
+    }
+
+    public Line checkCollisions() {
+        double lineWidth = Main.path.getLineWidth();
+
+        return null;
     }
 }

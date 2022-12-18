@@ -2,8 +2,7 @@ package com.lertos.wallsarebad;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -18,7 +17,7 @@ public class Path {
     private Random rng;
 
     public Path(Canvas canvas, int numOfInitialLines) {
-        this.pathOfLines = new ArrayList<>();
+        this.pathOfLines = new LinkedList<>();
         this.canvasWidth = canvas.getWidth();
         this.canvasHeight = canvas.getHeight();
 
