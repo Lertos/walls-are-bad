@@ -5,18 +5,33 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+
 public class Main extends Application {
 
+    private TitleScreen titleScreen;
     private double canvasWidth;
     private double canvasHeight;
     private boolean playerIsDead = false;
@@ -48,10 +63,15 @@ public class Main extends Application {
         player.setNextLine(path.getLine(1));
         player.updateCurrentCorner();
 
+        //Set up the handlers, title screen, and game over screen
         setupHandlers(stage);
+        titleScreen = new TitleScreen();
+
 
         //Finish setting up the stage and then present it
         root.getChildren().add(canvas);
+        root.getChildren().add(titleScreen.getContainer());
+
         stage.setResizable(false);
         stage.setScene(new Scene(root));
         stage.show();
@@ -68,6 +88,7 @@ public class Main extends Application {
                 else if (event.getCode() == KeyCode.D)
                     player.changeDirection(Direction.RIGHT);
 
+                titleScreen.getContainer().setVisible(false);
                 event.consume();
             }
         };
