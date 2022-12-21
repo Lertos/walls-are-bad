@@ -65,7 +65,7 @@ public class Main extends Application {
 
         //Set up the handlers, title screen, and game over screen
         setupHandlers(stage);
-        titleScreen = new TitleScreen();
+        titleScreen = new TitleScreen(canvasWidth, canvasHeight);
 
 
         //Finish setting up the stage and then present it
