@@ -1,5 +1,7 @@
 package com.lertos.wallsarebad;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -40,9 +42,9 @@ public class TitleScreen {
         StackPane difficultyPane = new StackPane();
 
         Rectangle pathWidth = new Rectangle(60, 60);
-        pathWidth.setStyle("-fx-fill: brown;");
+        pathWidth.setStyle("-fx-fill: " + Main.fgColor + ";");
         Rectangle playerSize = new Rectangle(20, 20);
-        playerSize.setStyle("-fx-fill: white;");
+        playerSize.setStyle("-fx-fill: " + Main.otherColor + ";");
 
         difficultyPane.getChildren().addAll(pathWidth, playerSize);
 
@@ -62,7 +64,9 @@ public class TitleScreen {
         radioGroup.setAlignment(Pos.CENTER);
 
         //Set the styling of the controls
-        titleLabel.setStyle("-fx-font: normal bold 36px 'serif';-fx-text-fill: white; -fx-label-padding: 20;");
+        container.setStyle("-fx-background-color: " + Main.bgColor + ";");
+
+        titleLabel.setStyle("-fx-font: normal bold 36px 'serif'; -fx-text-fill: " + Main.textColor + "; -fx-label-padding: 20;");
 
         //Add the controls to the container
         container.getChildren().add(titleLabel);
@@ -76,7 +80,24 @@ public class TitleScreen {
     private Button addStartButton() {
         Button startButton = new Button("START");
 
+        startButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                //TODO: Set the game control values of the player, path, etc
+
+                Main.currentState = GameState.GAME;
+                hideTitleScreen();
+            }
+        });
+
         return startButton;
+    }
+
+    public void showTitleScreen() {
+        container.setVisible(true);
+    }
+
+    public void hideTitleScreen() {
+        container.setVisible(false);
     }
 
 }

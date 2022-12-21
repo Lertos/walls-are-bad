@@ -5,32 +5,29 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
+enum GameState {
+    TITLE_SCREEN,
+    GAME,
+    END_SCREEN
+}
 
 public class Main extends Application {
 
+    static GameState currentState = GameState.TITLE_SCREEN;
+    static final String bgColor = "#1A120B";
+    static final String fgColor = "#D5CEA3";
+    static final String otherColor = "#3C2A21";
+    static final String textColor = "E5E5CB";
     private TitleScreen titleScreen;
     private double canvasWidth;
     private double canvasHeight;
@@ -67,7 +64,6 @@ public class Main extends Application {
         setupHandlers(stage);
         titleScreen = new TitleScreen(canvasWidth, canvasHeight);
 
-
         //Finish setting up the stage and then present it
         root.getChildren().add(canvas);
         root.getChildren().add(titleScreen.getContainer());
@@ -81,15 +77,16 @@ public class Main extends Application {
         EventHandler<KeyEvent> handler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.A)
-                    player.changeDirection(Direction.LEFT);
-                else if (event.getCode() == KeyCode.W)
-                    player.changeDirection(Direction.UP);
-                else if (event.getCode() == KeyCode.D)
-                    player.changeDirection(Direction.RIGHT);
+                if (currentState.equals(GameState.GAME)) {
+                    if (event.getCode() == KeyCode.A)
+                        player.changeDirection(Direction.LEFT);
+                    else if (event.getCode() == KeyCode.W)
+                        player.changeDirection(Direction.UP);
+                    else if (event.getCode() == KeyCode.D)
+                        player.changeDirection(Direction.RIGHT);
 
-                titleScreen.getContainer().setVisible(false);
-                event.consume();
+                    event.consume();
+                }
             }
         };
 
@@ -97,16 +94,17 @@ public class Main extends Application {
     }
 
     private void draw(GraphicsContext gc) {
+        if (!currentState.equals(GameState.GAME))
+            return;
+
         //Clear the canvas each frame with a background
-        gc.setFill(Color.web("#1A120B"));
+        gc.setFill(Color.web(bgColor));
         gc.fillRect(0, 0, canvasWidth, canvasHeight);
 
         //Set the properties of the other objects in the canvas
-        gc.setFill(Color.web("D5CEA3"));
-        gc.setStroke(Color.web("3C2A21"));
+        gc.setFill(Color.web(fgColor));
+        gc.setStroke(Color.web(otherColor));
         gc.setLineWidth(path.getLineWidth());
-
-        //TODO: Text color should be "E5E5CB"
 
         if (!playerIsDead) {
             //Check for collisions
