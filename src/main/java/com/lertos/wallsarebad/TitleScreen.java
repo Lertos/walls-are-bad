@@ -1,5 +1,7 @@
 package com.lertos.wallsarebad;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -17,6 +19,7 @@ public class TitleScreen {
     private double height;
 
     private VBox container;
+    private Rectangle pathWidth;
 
     public TitleScreen(double width, double height) {
         this.width = width;
@@ -42,10 +45,11 @@ public class TitleScreen {
         //The size comparison of the path and the player controls
         StackPane difficultyPane = new StackPane();
 
-        Rectangle pathWidth = new Rectangle(60, 60);
-        pathWidth.setStyle("-fx-fill: " + Main.fgColor + ";");
-        Rectangle playerSize = new Rectangle(20, 20);
-        playerSize.setStyle("-fx-fill: " + Main.otherColor + ";");
+        pathWidth = new Rectangle((maxPathSize - minPathSize) / 2, (maxPathSize - minPathSize) / 2);
+        pathWidth.setStyle("-fx-fill: " + Main.otherColor + ";");
+
+        Rectangle playerSize = new Rectangle(Main.player.getSize(), Main.player.getSize());
+        playerSize.setStyle("-fx-fill: " + Main.fgColor + ";");
 
         difficultyPane.getChildren().addAll(pathWidth, playerSize);
 
@@ -83,13 +87,11 @@ public class TitleScreen {
     private Button addStartButton() {
         Button startButton = new Button("START");
 
-        startButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                //TODO: Set the game control values of the player, path, etc
+        startButton.setOnAction(e -> {
+            //TODO: Set the game control values of the player, path, etc
 
-                Main.currentState = GameState.GAME;
-                hideTitleScreen();
-            }
+            Main.currentState = GameState.GAME;
+            hideTitleScreen();
         });
 
         return startButton;
@@ -110,6 +112,11 @@ public class TitleScreen {
         slider.setMaxWidth(Main.canvasWidth / 2);
 
         slider.setStyle("-fx-font: normal bold 16px 'serif'; -fx-text-fill: " + Main.textColor + "; -fx-label-padding: 20;");
+
+        slider.valueProperty().addListener((ov, oldVal, newVal) -> {
+            pathWidth.setWidth(newVal.doubleValue());
+            pathWidth.setHeight(newVal.doubleValue());
+        });
 
         return slider;
     }
