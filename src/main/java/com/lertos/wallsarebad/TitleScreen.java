@@ -39,6 +39,8 @@ public class TitleScreen {
         container.setAlignment(Pos.CENTER);
         container.setSpacing(20);
 
+        Button startButton = addStartButton();
+
         Label titleLabel = new Label("STAY ON THE PATH");
         Label difficultyLabel = new Label("Difficulty (Path Size)");
 
@@ -72,8 +74,15 @@ public class TitleScreen {
         //Set the styling of the controls
         container.setStyle("-fx-background-color: " + Main.bgColor + ";");
 
-        titleLabel.setStyle("-fx-font: normal bold 40px 'serif'; -fx-text-fill: " + Main.textColor + "; -fx-label-padding: 20;");
+        startButton.setStyle("-fx-font: normal bold 24px 'serif'; -fx-text-fill: " + Main.textColor + ";-fx-background-color: " + Main.otherColor + ";");
+
+        titleLabel.setStyle("-fx-border-width: 6; -fx-border-color: " + Main.otherColor + ";-fx-font: normal bold 40px 'serif'; -fx-text-fill: " + Main.textColor + "; -fx-label-padding: 20;");
+        //titleLabel.setBorder(new Border());
         difficultyLabel.setStyle("-fx-font: normal bold 20px 'serif'; -fx-text-fill: " + Main.textColor + ";");
+
+        easyButton.setStyle("-fx-font: normal bold 16px 'serif'; -fx-text-fill: " + Main.textColor + ";");
+        mediumButton.setStyle("-fx-font: normal bold 16px 'serif'; -fx-text-fill: " + Main.textColor + ";");
+        hardButton.setStyle("-fx-font: normal bold 16px 'serif'; -fx-text-fill: " + Main.textColor + ";");
 
         //Add the controls to the container
         container.getChildren().add(titleLabel);
@@ -81,7 +90,7 @@ public class TitleScreen {
         container.getChildren().add(difficultyPane);
         container.getChildren().add(addDifficultySlider());
         container.getChildren().add(radioGroup);
-        container.getChildren().add(addStartButton());
+        container.getChildren().add(startButton);
     }
 
     private Button addStartButton() {
