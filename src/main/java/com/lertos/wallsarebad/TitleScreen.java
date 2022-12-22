@@ -11,6 +11,8 @@ import javafx.scene.shape.Rectangle;
 
 public class TitleScreen {
 
+    private int minPathSize = 10;
+    private int maxPathSize = 60;
     private double width;
     private double height;
 
@@ -33,10 +35,9 @@ public class TitleScreen {
         container.setPrefSize(width,height);
         container.setFillWidth(true);
         container.setAlignment(Pos.CENTER);
+        container.setSpacing(20);
 
         Label titleLabel = new Label("DON'T FALL");
-
-        Slider slider = new Slider();
 
         //The size comparison of the path and the player controls
         StackPane difficultyPane = new StackPane();
@@ -68,11 +69,13 @@ public class TitleScreen {
 
         titleLabel.setStyle("-fx-font: normal bold 36px 'serif'; -fx-text-fill: " + Main.textColor + "; -fx-label-padding: 20;");
 
+        radioGroup.setSpacing(20);
+
         //Add the controls to the container
         container.getChildren().add(titleLabel);
         container.getChildren().add(new Label("DIFFICULTY"));
         container.getChildren().add(difficultyPane);
-        container.getChildren().add(slider);
+        container.getChildren().add(addDifficultySlider());
         container.getChildren().add(radioGroup);
         container.getChildren().add(addStartButton());
     }
@@ -90,6 +93,25 @@ public class TitleScreen {
         });
 
         return startButton;
+    }
+
+    private Slider addDifficultySlider() {
+        Slider slider = new Slider();
+
+        slider.setMin(minPathSize);
+        slider.setMax(maxPathSize);
+        slider.setValue((maxPathSize - minPathSize) / 2);
+
+        slider.setSnapToTicks(true);
+        slider.setShowTickLabels(true);
+        slider.setShowTickMarks(true);
+        slider.setMinorTickCount((maxPathSize - minPathSize));
+
+        slider.setMaxWidth(Main.canvasWidth / 2);
+
+        slider.setStyle("-fx-font: normal bold 16px 'serif'; -fx-text-fill: " + Main.textColor + "; -fx-label-padding: 20;");
+
+        return slider;
     }
 
     public void showTitleScreen() {
