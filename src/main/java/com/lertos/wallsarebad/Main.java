@@ -29,8 +29,8 @@ public class Main extends Application {
     static final String otherColor = "#3C2A21";
     static final String textColor = "E5E5CB";
     private TitleScreen titleScreen;
-    private double canvasWidth;
-    private double canvasHeight;
+    static double canvasWidth;
+    static double canvasHeight;
     private boolean playerIsDead = false;
 
     static Player player;
