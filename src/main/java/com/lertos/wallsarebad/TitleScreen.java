@@ -6,9 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class TitleScreen {
@@ -40,7 +39,8 @@ public class TitleScreen {
         container.setAlignment(Pos.CENTER);
         container.setSpacing(20);
 
-        Label titleLabel = new Label("DON'T FALL");
+        Label titleLabel = new Label("STAY ON THE PATH");
+        Label difficultyLabel = new Label("Difficulty (Path Size)");
 
         //The size comparison of the path and the player controls
         StackPane difficultyPane = new StackPane();
@@ -67,17 +67,17 @@ public class TitleScreen {
         HBox radioGroup = new HBox(easyButton, mediumButton, hardButton);
 
         radioGroup.setAlignment(Pos.CENTER);
+        radioGroup.setSpacing(20);
 
         //Set the styling of the controls
         container.setStyle("-fx-background-color: " + Main.bgColor + ";");
 
-        titleLabel.setStyle("-fx-font: normal bold 36px 'serif'; -fx-text-fill: " + Main.textColor + "; -fx-label-padding: 20;");
-
-        radioGroup.setSpacing(20);
+        titleLabel.setStyle("-fx-font: normal bold 40px 'serif'; -fx-text-fill: " + Main.textColor + "; -fx-label-padding: 20;");
+        difficultyLabel.setStyle("-fx-font: normal bold 20px 'serif'; -fx-text-fill: " + Main.textColor + ";");
 
         //Add the controls to the container
         container.getChildren().add(titleLabel);
-        container.getChildren().add(new Label("DIFFICULTY"));
+        container.getChildren().add(difficultyLabel);
         container.getChildren().add(difficultyPane);
         container.getChildren().add(addDifficultySlider());
         container.getChildren().add(radioGroup);
@@ -105,13 +105,8 @@ public class TitleScreen {
         slider.setValue((maxPathSize - minPathSize) / 2);
 
         slider.setSnapToTicks(true);
-        slider.setShowTickLabels(true);
-        slider.setShowTickMarks(true);
         slider.setMinorTickCount((maxPathSize - minPathSize));
-
         slider.setMaxWidth(Main.canvasWidth / 2);
-
-        slider.setStyle("-fx-font: normal bold 16px 'serif'; -fx-text-fill: " + Main.textColor + "; -fx-label-padding: 20;");
 
         slider.valueProperty().addListener((ov, oldVal, newVal) -> {
             pathWidth.setWidth(newVal.doubleValue());
