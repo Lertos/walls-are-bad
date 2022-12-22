@@ -24,7 +24,7 @@ enum GameState {
 public class Main extends Application {
 
     static GameState currentState = GameState.TITLE_SCREEN;
-    static final String bgColor = "#1A120B";
+    static final String bgColor = "#120d08";
     static final String fgColor = "#D5CEA3";
     static final String otherColor = "#3C2A21";
     static final String textColor = "E5E5CB";
