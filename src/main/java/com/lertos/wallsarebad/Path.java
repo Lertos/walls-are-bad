@@ -1,6 +1,5 @@
 package com.lertos.wallsarebad;
 
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.util.Pair;
 
@@ -8,25 +7,36 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+enum Difficulty {
+    EASY,
+    MEDIUM,
+    HARD
+}
+
 public class Path {
 
     private final List<Line> pathOfLines;
-    private double lineWidth = 30;
+    private double lineWidth;
     //The amount of lines to create when a level first is generated
     private final int initialLines = 20;
-    //The amount of previous line to keep before the current line (so lines aren't disappearing behind the player)
+    //The amount of previous lines to keep before the current line (so lines aren't disappearing behind the player)
     private final int previousLineToKeep = 10;
-    private int minLineTiles = 2;
-    private int maxLineTiles = 6;
+    private int minLineTiles;
+    private int maxLineTiles;
     private Random rng;
 
-    public Path() {
-        this.pathOfLines = new LinkedList<>();
-
+    public Path(double lineWidth, Difficulty difficulty) {
         this.rng = new Random();
+        this.pathOfLines = new LinkedList<>();
+        this.lineWidth = lineWidth;
+
+        switch (difficulty) {
+            case EASY -> { minLineTiles = 9; maxLineTiles = 12; }
+            case MEDIUM -> { minLineTiles = 6; maxLineTiles = 9; }
+            case HARD -> { minLineTiles = 3; maxLineTiles = 6; }
+        }
 
         generateInitialLines();
-        startNewGame();
     }
 
     public double getLineWidth() {
@@ -45,15 +55,6 @@ public class Path {
 
         for (int i=0; i<initialLines; i++)
             addLine();
-    }
-
-    private void startNewGame() {
-        Main.player = new Player(Main.canvasWidth / 2, Main.canvasHeight / 2);
-        Main.path = new Path();
-
-        Main.player.setCurrentLine(Main.path.getLine(0));
-        Main.player.setNextLine(Main.path.getLine(1));
-        Main.player.updateCurrentCorner();
     }
 
     public void draw(GraphicsContext gc) {

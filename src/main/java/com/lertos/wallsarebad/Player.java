@@ -63,6 +63,12 @@ public class Player {
         this.currentCorner = new Corner(currentLine, nextLine);
     }
 
+    public void startNewGame() {
+        setCurrentLine(Main.path.getLine(0));
+        setNextLine(Main.path.getLine(1));
+        updateCurrentCorner();
+    }
+
     public void moveCorner(Direction direction, int speed) {
         switch (direction) {
             case UP -> currentCorner.setY(speed);

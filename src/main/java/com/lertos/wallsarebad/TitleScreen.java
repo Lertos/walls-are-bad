@@ -1,13 +1,8 @@
 package com.lertos.wallsarebad;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class TitleScreen {
@@ -19,6 +14,7 @@ public class TitleScreen {
 
     private VBox container;
     private Rectangle pathWidth;
+    private ToggleGroup toggleGroup;
 
     public TitleScreen(double width, double height) {
         this.width = width;
@@ -56,7 +52,7 @@ public class TitleScreen {
         difficultyPane.getChildren().addAll(pathWidth, playerSize);
 
         //The radio button grouping for the path length difficulty setting
-        ToggleGroup toggleGroup = new ToggleGroup();
+        toggleGroup = new ToggleGroup();
 
         RadioButton easyButton = new RadioButton("Easy");
         RadioButton mediumButton = new RadioButton("Medium");
@@ -100,10 +96,23 @@ public class TitleScreen {
         Button startButton = new Button("START");
 
         startButton.setOnAction(e -> {
-            //TODO: Set the game control values of the player, path, etc
-
-            Main.currentState = GameState.GAME;
             hideTitleScreen();
+
+            double lineWidth = pathWidth.getWidth();
+
+            ToggleButton toggled = (ToggleButton) toggleGroup.getSelectedToggle();
+            String chosenDifficulty = toggled.getText();
+            Difficulty difficulty = null;
+
+            switch (chosenDifficulty.toLowerCase()) {
+                case "easy" -> difficulty = Difficulty.EASY;
+                case "medium" -> difficulty = Difficulty.MEDIUM;
+                case "hard" -> difficulty = Difficulty.HARD;
+            }
+
+            Main.path = new Path(lineWidth, difficulty);
+            Main.player.startNewGame();
+            Main.currentState = GameState.GAME;
         });
 
         return startButton;
