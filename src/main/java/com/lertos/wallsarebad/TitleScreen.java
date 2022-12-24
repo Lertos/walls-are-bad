@@ -84,6 +84,9 @@ public class TitleScreen {
         mediumButton.setStyle("-fx-font: normal bold 16px 'serif'; -fx-text-fill: " + Main.textColor + ";");
         hardButton.setStyle("-fx-font: normal bold 16px 'serif'; -fx-text-fill: " + Main.textColor + ";");
 
+        //Making sure one option is always selected
+        toggleGroup.selectToggle(easyButton);
+
         //Add the controls to the container
         container.getChildren().add(titleLabel);
         container.getChildren().add(difficultyLabel);
