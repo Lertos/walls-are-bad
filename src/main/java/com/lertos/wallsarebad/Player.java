@@ -18,16 +18,15 @@ public class Player {
     private Line currentLine;
     private Line nextLine;
     private Corner currentCorner;
-    private int speed;
+    private final int speed = 2;
     private final int size = 10;
 
-    public Player(double startX, double startY, int speed) {
+    public Player(double startX, double startY) {
         this.startX = startX - (size / 2);
         this.startY = startY - (size / 2);
         this.currentX = startX;
         this.currentY = startY;
         this.direction = Direction.UP;
-        this.speed = speed;
     }
 
     public void changeDirection(Direction direction) {

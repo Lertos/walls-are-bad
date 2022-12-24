@@ -53,7 +53,7 @@ public class Main extends Application {
         timeline.playFromStart();
 
         //Setup initial map and player
-        player = new Player(canvasWidth / 2, canvasHeight / 2, 2);
+        player = new Player(canvasWidth / 2, canvasHeight / 2);
         path = new Path();
 
         player.setCurrentLine(path.getLine(0));
