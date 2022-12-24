@@ -12,16 +12,12 @@ public class Path {
 
     private final List<Line> pathOfLines;
     private double lineWidth = 30;
-    private final int minLineTiles = 2;
-    private final int maxLineTiles = 6;
-    private final double canvasWidth;
-    private final double canvasHeight;
+    private int minLineTiles = 2;
+    private int maxLineTiles = 6;
     private Random rng;
 
-    public Path(Canvas canvas, int numOfInitialLines) {
+    public Path(int numOfInitialLines) {
         this.pathOfLines = new LinkedList<>();
-        this.canvasWidth = canvas.getWidth();
-        this.canvasHeight = canvas.getHeight();
 
         this.rng = new Random();
 
@@ -52,9 +48,9 @@ public class Path {
     }
 
     private void addInitialLine() {
-        double middleX = canvasWidth / 2;
+        double middleX = Main.canvasWidth / 2;
 
-        pathOfLines.add(new Line(Direction.UP, middleX, 0, middleX, canvasHeight));
+        pathOfLines.add(new Line(Direction.UP, middleX, 0, middleX, Main.canvasHeight));
     }
 
     //Takes the current end point and adds a line to it
