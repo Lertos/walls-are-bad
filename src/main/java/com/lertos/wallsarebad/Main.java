@@ -52,8 +52,9 @@ public class Main extends Application {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.playFromStart();
 
-        //Set up the handlers, title screen, and game over screen
+        //Set up the handlers, title screen, the player, and game over screen
         setupHandlers(stage);
+        Main.player = new Player(Main.canvasWidth / 2, Main.canvasHeight / 2);
         titleScreen = new TitleScreen(canvasWidth, canvasHeight);
 
         //Finish setting up the stage and then present it
