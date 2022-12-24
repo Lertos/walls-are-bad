@@ -12,16 +12,20 @@ public class Path {
 
     private final List<Line> pathOfLines;
     private double lineWidth = 30;
+    //The amount of lines to create when a level first is generated
+    private final int initialLines = 20;
+    //The amount of previous line to keep before the current line (so lines aren't disappearing behind the player)
+    private final int previousLineToKeep = 10;
     private int minLineTiles = 2;
     private int maxLineTiles = 6;
     private Random rng;
 
-    public Path(int numOfInitialLines) {
+    public Path() {
         this.pathOfLines = new LinkedList<>();
 
         this.rng = new Random();
 
-        generateInitialLines(numOfInitialLines);
+        generateInitialLines();
     }
 
     public double getLineWidth() {
@@ -34,11 +38,11 @@ public class Path {
         return pathOfLines.get(index);
     }
 
-    private void generateInitialLines(int numOfInitialLines) {
+    private void generateInitialLines() {
         //Add the initial line which is always in the same place
         addInitialLine();
 
-        for (int i=0; i<numOfInitialLines; i++)
+        for (int i=0; i<initialLines; i++)
             addLine();
     }
 

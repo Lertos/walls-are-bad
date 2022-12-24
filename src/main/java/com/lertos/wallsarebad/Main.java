@@ -54,7 +54,7 @@ public class Main extends Application {
 
         //Setup initial map and player
         player = new Player(canvasWidth / 2, canvasHeight / 2, 2);
-        path = new Path(10);
+        path = new Path();
 
         player.setCurrentLine(path.getLine(0));
         player.setNextLine(path.getLine(1));
