@@ -52,14 +52,6 @@ public class Main extends Application {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.playFromStart();
 
-        //Setup initial map and player
-        player = new Player(canvasWidth / 2, canvasHeight / 2);
-        path = new Path();
-
-        player.setCurrentLine(path.getLine(0));
-        player.setNextLine(path.getLine(1));
-        player.updateCurrentCorner();
-
         //Set up the handlers, title screen, and game over screen
         setupHandlers(stage);
         titleScreen = new TitleScreen(canvasWidth, canvasHeight);

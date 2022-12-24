@@ -26,6 +26,7 @@ public class Path {
         this.rng = new Random();
 
         generateInitialLines();
+        startNewGame();
     }
 
     public double getLineWidth() {
@@ -44,6 +45,15 @@ public class Path {
 
         for (int i=0; i<initialLines; i++)
             addLine();
+    }
+
+    private void startNewGame() {
+        Main.player = new Player(Main.canvasWidth / 2, Main.canvasHeight / 2);
+        Main.path = new Path();
+
+        Main.player.setCurrentLine(Main.path.getLine(0));
+        Main.player.setNextLine(Main.path.getLine(1));
+        Main.player.updateCurrentCorner();
     }
 
     public void draw(GraphicsContext gc) {
