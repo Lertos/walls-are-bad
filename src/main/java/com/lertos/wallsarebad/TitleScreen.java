@@ -8,7 +8,7 @@ import javafx.scene.shape.Rectangle;
 public class TitleScreen {
 
     private int minPathSize = 10;
-    private int maxPathSize = 60;
+    private int maxPathSize = 50;
     private double width;
     private double height;
 

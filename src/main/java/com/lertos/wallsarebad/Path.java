@@ -31,9 +31,9 @@ public class Path {
         this.lineWidth = lineWidth;
 
         switch (difficulty) {
-            case EASY -> { minLineTiles = 9; maxLineTiles = 12; }
-            case MEDIUM -> { minLineTiles = 6; maxLineTiles = 9; }
-            case HARD -> { minLineTiles = 3; maxLineTiles = 6; }
+            case EASY -> { minLineTiles = 4; maxLineTiles = 7; }
+            case MEDIUM -> { minLineTiles = 3; maxLineTiles = 6; }
+            case HARD -> { minLineTiles = 2; maxLineTiles = 5; }
         }
 
         generateInitialLines();
