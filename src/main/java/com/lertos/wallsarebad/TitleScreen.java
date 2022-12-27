@@ -110,7 +110,9 @@ public class TitleScreen {
                 case "hard" -> difficulty = Difficulty.HARD;
             }
 
-            Main.path = new Path(lineWidth, difficulty);
+            ScoreOverlay scoreOverlay = new ScoreOverlay(lineWidth, difficulty);
+
+            Main.path = new Path(lineWidth, difficulty, scoreOverlay);
             Main.player.startNewGame();
             Main.currentState = GameState.GAME;
         });

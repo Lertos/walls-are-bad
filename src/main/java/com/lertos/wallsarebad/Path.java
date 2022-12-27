@@ -15,6 +15,7 @@ enum Difficulty {
 
 public class Path {
 
+    private ScoreOverlay scoreOverlay;
     private final List<Line> pathOfLines;
     private double lineWidth;
     //The amount of lines to create when a level first is generated
@@ -25,7 +26,8 @@ public class Path {
     private int maxLineTiles;
     private Random rng;
 
-    public Path(double lineWidth, Difficulty difficulty) {
+    public Path(double lineWidth, Difficulty difficulty, ScoreOverlay scoreOverlay) {
+        this.scoreOverlay = scoreOverlay;
         this.rng = new Random();
         this.pathOfLines = new LinkedList<>();
         this.lineWidth = lineWidth;
@@ -37,6 +39,10 @@ public class Path {
         }
 
         generateInitialLines();
+    }
+
+    public ScoreOverlay getScoreOverlay() {
+        return scoreOverlay;
     }
 
     public double getLineWidth() {

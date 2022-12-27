@@ -12,6 +12,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -46,6 +48,8 @@ public class Main extends Application {
         canvasHeight = canvas.getHeight();
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        gc.setFont(new Font("serif bold", 24.0));
 
         //Set up the game loop
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.01), e -> draw(gc)));
@@ -112,6 +116,9 @@ public class Main extends Application {
                 }
             }
         }
+        //Draw the current score of the player
+        path.getScoreOverlay().draw(gc);
+
         //Draw the lines of the path
         path.draw(gc);
 
