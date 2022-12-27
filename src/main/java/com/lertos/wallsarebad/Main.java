@@ -116,14 +116,15 @@ public class Main extends Application {
                 }
             }
         }
-        //Draw the current score of the player
-        path.getScoreOverlay().draw(gc);
 
         //Draw the lines of the path
         path.draw(gc);
 
         //The player object - always in the middle
         player.draw(gc);
+
+        //Draw the current score of the player
+        path.getScoreOverlay().draw(gc);
 
         //Move the lines
         if (!playerIsDead)
