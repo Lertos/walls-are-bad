@@ -22,6 +22,7 @@ public class Path {
     private final int initialLines = 20;
     //The amount of previous lines to keep before the current line (so lines aren't disappearing behind the player)
     private final int previousLineToKeep = 10;
+    private int currentLine = 0;
     private int minLineTiles;
     private int maxLineTiles;
     private Random rng;
@@ -131,6 +132,13 @@ public class Path {
         Main.player.setCurrentLine(pathOfLines.get(index));
         Main.player.setNextLine(pathOfLines.get(index + 1));
         Main.player.updateCurrentCorner();
+
+        addLine();
+
+        if (currentLine >= previousLineToKeep)
+            pathOfLines.remove(0);
+
+        currentLine++;
 
         scoreOverlay.increaseScore();
     }
