@@ -131,6 +131,8 @@ public class Path {
         Main.player.setCurrentLine(pathOfLines.get(index));
         Main.player.setNextLine(pathOfLines.get(index + 1));
         Main.player.updateCurrentCorner();
+
+        scoreOverlay.increaseScore();
     }
 
     public void moveObjects(Direction direction, int speed) {
