@@ -20,7 +20,7 @@ public class ScoreOverlay {
     }
 
     public void increaseScore() {
-        double score = (100 - lineWidth) * 100;
+        double score = (100 - lineWidth) * 7;
 
         switch (difficulty) {
             case EASY -> score *= 1.25;
