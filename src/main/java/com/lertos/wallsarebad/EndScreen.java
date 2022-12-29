@@ -8,14 +8,13 @@ public class EndScreen {
 
     private final double width;
     private final double height;
-    private int score;
+    private Label scoreLabel;
 
     private VBox container;
 
     public EndScreen(double width, double height) {
         this.width = width;
         this.height = height;
-        this.score = 0;
 
         container = new VBox();
 
@@ -28,7 +27,7 @@ public class EndScreen {
     }
 
     public void setScore(int score) {
-        this.score = score;
+        this.scoreLabel.setText("FINAL SCORE: " + score);
     }
 
     private void setupScreen() {
@@ -39,7 +38,7 @@ public class EndScreen {
 
         Button restartButton = addRestartButton();
 
-        Label scoreLabel = new Label("FINAL SCORE: " + score);
+        scoreLabel = new Label("");
 
         //Set the styling of the controls
         container.setStyle("-fx-background-color: " + Main.bgColor + ";");
