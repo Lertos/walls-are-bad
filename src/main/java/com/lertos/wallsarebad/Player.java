@@ -19,9 +19,11 @@ public class Player {
     private Line nextLine;
     private Corner currentCorner;
     private final int speed = 2;
-    private double size = 10;
+    private final double startingSize = 10;
+    private double size;
 
     public Player(double startX, double startY) {
+        this.size = this.startingSize;
         this.startX = startX - (size / 2);
         this.startY = startY - (size / 2);
         this.currentX = startX;
@@ -43,7 +45,12 @@ public class Player {
 
     public double getSize() { return size; }
 
-    public void setSize(double size) { this.size = size; }
+    public void setSize(double size) {
+        if (this.size >= -0.05 && this.size <= 0.05 )
+            this.size = 0.0;
+        else
+            this.size = size;
+    }
 
     public void draw(GraphicsContext gc) {
         gc.fillRect(startX, startY, size, size);
@@ -66,6 +73,8 @@ public class Player {
     }
 
     public void startNewGame() {
+        this.size = this.startingSize;
+
         setCurrentLine(Main.path.getLine(0));
         setNextLine(Main.path.getLine(1));
         updateCurrentCorner();
