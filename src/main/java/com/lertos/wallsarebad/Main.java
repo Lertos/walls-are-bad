@@ -13,7 +13,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -111,10 +110,11 @@ public class Main extends Application {
                     path.changePlayerLines();
                 else {
                     playerIsDead = true;
-                    //TODO: Add a death animation
-                    System.out.println("YOU DIED");
                 }
             }
+        } else {
+            //Death animation to show that the player is falling
+            player.setSize(player.getSize() - 0.1);
         }
 
         //Draw the lines of the path

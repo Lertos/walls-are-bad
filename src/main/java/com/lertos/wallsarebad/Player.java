@@ -19,7 +19,7 @@ public class Player {
     private Line nextLine;
     private Corner currentCorner;
     private final int speed = 2;
-    private final int size = 10;
+    private double size = 10;
 
     public Player(double startX, double startY) {
         this.startX = startX - (size / 2);
@@ -41,7 +41,9 @@ public class Player {
         return speed;
     }
 
-    public int getSize() { return size; }
+    public double getSize() { return size; }
+
+    public void setSize(double size) { this.size = size; }
 
     public void draw(GraphicsContext gc) {
         gc.fillRect(startX, startY, size, size);
