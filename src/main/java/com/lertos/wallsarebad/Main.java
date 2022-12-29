@@ -29,10 +29,11 @@ public class Main extends Application {
     static final String fgColor = "#D5CEA3";
     static final String otherColor = "#3C2A21";
     static final String textColor = "E5E5CB";
-    private TitleScreen titleScreen;
+    static TitleScreen titleScreen;
+    static EndScreen endScreen;
     static double canvasWidth;
     static double canvasHeight;
-    private boolean playerIsDead = false;
+    static boolean playerIsDead = false;
 
     static Player player;
     static Path path;
@@ -59,10 +60,12 @@ public class Main extends Application {
         setupHandlers(stage);
         Main.player = new Player(Main.canvasWidth / 2, Main.canvasHeight / 2);
         titleScreen = new TitleScreen(canvasWidth, canvasHeight);
+        endScreen = new EndScreen(canvasWidth, canvasHeight);
 
         //Finish setting up the stage and then present it
         root.getChildren().add(canvas);
         root.getChildren().add(titleScreen.getContainer());
+        root.getChildren().add(endScreen.getContainer());
 
         stage.setResizable(false);
         stage.setScene(new Scene(root));
@@ -114,7 +117,15 @@ public class Main extends Application {
             }
         } else {
             //Death animation to show that the player is falling
-            player.setSize(player.getSize() - 0.1);
+            double size = player.getSize();
+
+            player.setSize(size - 0.1);
+
+            if (size <= 0.0) {
+                endScreen.setScore(path.getScoreOverlay().getCurrentScore());
+                currentState = GameState.END_SCREEN;
+                endScreen.show();
+            }
         }
 
         //Draw the lines of the path
