@@ -22,7 +22,6 @@ public class TitleScreen {
 
         container = new VBox();
 
-        hide();
         setupScreen();
     }
 
@@ -115,6 +114,7 @@ public class TitleScreen {
 
             Main.path = new Path(lineWidth, difficulty, scoreOverlay);
             Main.player.startNewGame();
+            Main.playerIsDead = false;
             Main.currentState = GameState.GAME;
         });
 
