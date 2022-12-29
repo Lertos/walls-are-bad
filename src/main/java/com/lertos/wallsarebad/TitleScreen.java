@@ -22,6 +22,7 @@ public class TitleScreen {
 
         container = new VBox();
 
+        hide();
         setupScreen();
     }
 
@@ -96,7 +97,7 @@ public class TitleScreen {
         Button startButton = new Button("START");
 
         startButton.setOnAction(e -> {
-            hideTitleScreen();
+            hide();
 
             double lineWidth = pathWidth.getWidth();
 
@@ -139,11 +140,11 @@ public class TitleScreen {
         return slider;
     }
 
-    public void showTitleScreen() {
+    public void show() {
         container.setVisible(true);
     }
 
-    public void hideTitleScreen() {
+    public void hide() {
         container.setVisible(false);
     }
 
