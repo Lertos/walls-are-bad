@@ -8,22 +8,27 @@ public class EndScreen {
 
     private final double width;
     private final double height;
-    private final int score;
+    private int score;
 
     private VBox container;
 
-    public EndScreen(double width, double height, int score) {
+    public EndScreen(double width, double height) {
         this.width = width;
         this.height = height;
-        this.score = score;
+        this.score = 0;
 
         container = new VBox();
 
+        hide();
         setupScreen();
     }
 
     public VBox getContainer() {
         return container;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     private void setupScreen() {
@@ -52,8 +57,20 @@ public class EndScreen {
 
         restartButton.setOnAction(e -> {
             Main.currentState = GameState.TITLE_SCREEN;
+
+            hide();
+
+            Main.titleScreen.show();
         });
 
         return restartButton;
+    }
+
+    public void show() {
+        container.setVisible(true);
+    }
+
+    public void hide() {
+        container.setVisible(false);
     }
 }
