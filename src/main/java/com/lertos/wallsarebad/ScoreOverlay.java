@@ -19,6 +19,10 @@ public class ScoreOverlay {
         this.difficulty = difficulty;
     }
 
+    public int getCurrentScore() {
+        return currentScore;
+    }
+
     public void increaseScore() {
         double score = (100 - lineWidth) * 7;
 
